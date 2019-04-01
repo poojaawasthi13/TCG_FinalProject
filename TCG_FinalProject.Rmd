@@ -1,0 +1,28 @@
+---
+title: "TCG_FinalProject"
+author: "Layeeq Mohammed & Pooja Awasthi"
+date: "1 April 2019"
+output: html_document
+---
+
+#We have chosen this data because of the following reason :
+#This excessive rate of Energy consumption poses serious threats to the economic future of the United States. This data shows Energy Consumption of different states.
+#It imports the most natural gas, which amounts for 110,000 billion metric meters.Therefore it is dependent on some other forms of 
+#Energy such as hydroelectricity energy, nuclear energy, geothermal, solar energy consumption etc.
+#At the end of the project we will be able to explain the use of different packages, how the data cleaning is done, regression model and exploartory data analysis.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(rvest)
+library(plyr)
+library(lubridate)
+library(ggplot2)
+
+urllink <- read.csv("https://raw.githubusercontent.com/poojaawasthi13/TCG_FinalProject/master/noniouzipcodes2015.csv",header=TRUE, sep=",")
+data <- data.frame(urllink)
+data
+
+
+```
+
