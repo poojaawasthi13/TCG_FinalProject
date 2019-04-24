@@ -1,0 +1,96 @@
+---
+title: "TCG_FinalProject_Phase1"
+author: "Layeeq Mohammed & Pooja Awasthi"
+date: "22 April 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+library(rvest)
+library(plyr)
+library(lubridate)
+library(ggplot2)
+library(cluster)
+
+#Model 1: In this model,we considered X- Axis as 'comm_rate'(Company Rate), Y-Axis as 'Zip Code' 
+#of the towns across the cities, to plot the variation of different places through zip code. 
+#The interpreted coefficients holds everything in the model constant and the mean gets decreasing, i.e Adjusted R-squared:  0.001859 
+
+
+urllink <- read.csv("https://raw.githubusercontent.com/poojaawasthi13/TCG_FinalProject/master/noniouzipcodes2015.csv",header=TRUE, sep=",")
+data <- data.frame(urllink)
+data
+
+model_1 <- lm(zip ~ comm_rate, data = data)
+summary(model)
+
+
+data$predicted <- predict(model_1)   
+data$residuals <- residuals(model_1) 
+data
+
+ggplot(data, aes(x = comm_rate , y = zip)) +
+  geom_point() +
+  geom_point(aes(y = predicted), shape = 1)
+ggplot(data, aes(x = comm_rate , y = residuals, color=comm_rate)) +
+  geom_point() +
+  geom_segment(aes(xend = comm_rate , yend = 0), alpha = .2) + geom_hline(yintercept = 0)
+
+```
+
+```{r}
+library(rvest)
+library(plyr)
+library(lubridate)
+library(ggplot2)
+library(cluster)
+
+#Model 2: In this model,we considered X- Axis as 'comm_rate'(Company Rate) + 'ind_rate'(Índependent Rate), Y-Axis as 'Zip Code' 
+#of the towns across the cities, to plot the variation of different places through zip code. 
+#The interpreted coefficients holds everything in the model constant and the mean gets decreasing, i.e Adjusted R-squared:  0.0112
+
+model_2 <- lm(zip ~ comm_rate + ind_rate, data = data)
+summary(model_2)
+data$predicted <- predict(model_2)   
+data$residuals <- residuals(model_2) 
+data
+ggplot(data, aes(x = comm_rate + ind_rate, y = zip)) +
+  geom_point() +
+  geom_point(aes(y = predicted), shape = 1)
+ggplot(data, aes(x = comm_rate, y = residuals, color=ind_rate)) +
+  geom_point() +
+  geom_segment(aes(xend = comm_rate , yend = 0), alpha = .2) + geom_hline(yintercept = 0)
+```
+
+```{r}
+library(rvest)
+library(plyr)
+library(lubridate)
+library(ggplot2)
+library(cluster)
+
+#Model 3: In this model, we considered X- Axis as 'comm_rate'(Company Rate) + 'ind_rate'(Índependent Rate)+'res_rate'(Residential Rate), 
+#Y-Axis as 'Zip Code' of the towns across the cities, to plot the variation of different places through zip code. 
+#The interpreted coefficients holds everything in the model constant and the mean gets increasing and 
+#it has higher value of Adjusted R-squared: 0.03103 compared to other 2 previous models.
+
+model_3 <- lm(zip ~ comm_rate + ind_rate + res_rate, data = data)
+summary(model_3)
+data$predicted <- predict(model_3)   
+data$residuals <- residuals(model_3) 
+data
+ggplot(data, aes(x = comm_rate + ind_rate + res_rate, y = zip)) +
+  geom_point() +
+  geom_point(aes(y = predicted), shape = 1)
+ggplot(data, aes(x = comm_rate , y = residuals, color=res_rate))  +
+  geom_point() +
+  geom_segment(aes(xend = comm_rate , yend = 0), alpha = .2) + geom_hline(yintercept = 0)
+
+```
+
