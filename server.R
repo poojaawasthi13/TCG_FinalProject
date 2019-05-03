@@ -16,7 +16,18 @@ library(data.table)
 library(cluster)
 library(xml2)
 
+#Project Description:
+#U.S. Energy Information Administration dataset 
+#provides average residential, commercial and industrial electricity rates by zip code 
+#for both investor owned utilities (IOU) and non-investor owned utilities. 
+#The file includes average rates for each utility.
+#
 
+#Energy conservation effort made to reduce the consumption of energy by using less of an energy service.
+#As the energy consumption is increasing day to day, many researches are going on to find the best sources of Energy,
+#currently there are Solar Energy,Wind Energy, Geothermal Energy, Hydrogen Energy ,Tidal Energy ,Wave Energy ,Hydroelectric Energy, Biomass Energy.
+#
+#We chose the last model 'Model_3' as an excellent model from the above three models, as R-squared improved to : 0.9327. 
 
 #urllink <- read.csv("https://raw.githubusercontent.com/poojaawasthi13/TCG_FinalProject/master/noniouzipcodes2015.csv",header=TRUE, sep=",")
 #fn <- data.frame(urllink)
